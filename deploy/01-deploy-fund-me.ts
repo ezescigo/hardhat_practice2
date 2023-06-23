@@ -4,10 +4,11 @@ import { network } from "hardhat"
 import {
     ChainId,
     NetworkConfigType,
+    developmentChain,
     networkConfig,
 } from "../helper-hardhat-config"
 
-const func: DeployFunction = async function ({
+const fundMe: DeployFunction = async function ({
     getNamedAccounts,
     deployments,
 }: HardhatRuntimeEnvironment) {
@@ -15,15 +16,22 @@ const func: DeployFunction = async function ({
     const { deployer } = await getNamedAccounts()
     const chainId = network.config.chainId as number
 
-    const ethUsdPriceFeedAddress = Object.entries(networkConfig).find(
-        ([key, value]) => key === chainId.toString()
-    )
+    let ethUsdPriceFeedAddress
+    if (developmentChain.includes(network.name)) {
+        const ethUsdAggregator = await deployments.get("MockV3Aggregator")
+        ethUsdPriceFeedAddress = ethUsdAggregator.address
+    } else {
+        ethUsdPriceFeedAddress = Object.entries(networkConfig).find(
+            ([key, value]) => key === chainId.toString()
+        )
+    }
 
     const fundMe = await deploy("FundMe", {
         from: deployer,
-        args: [],
+        args: [ethUsdPriceFeedAddress],
         log: true,
     })
 }
 
-export default func
+export default fundMe
+fundMe.tags = ["all", "fundme"]
