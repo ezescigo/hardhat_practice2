@@ -1,6 +1,7 @@
 import { HardhatUserConfig } from "hardhat/config"
 import "hardhat-deploy"
 import "@nomicfoundation/hardhat-toolbox"
+import "dotenv/config"
 
 const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY || ""
 const SEPOLIA_RPC_URL =
@@ -39,7 +40,7 @@ const config: HardhatUserConfig = {
         // customChains: [], // uncomment this line if you are getting a TypeError: customChains is not iterable
     },
     gasReporter: {
-        enabled: true,
+        enabled: false,
         currency: "USD",
         outputFile: "gas-report.txt",
         noColors: true,

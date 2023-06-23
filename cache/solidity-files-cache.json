@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/home/ezescigo/projects/hardhat-fundme/contracts/FundMe.sol": {
-      "lastModificationDate": 1687212226033,
-      "contentHash": "46509a1aeb49caca19b1b54ae556a241",
+      "lastModificationDate": 1687547757769,
+      "contentHash": "145477b4fc24df11448ab2467cf53203",
       "sourceName": "contracts/FundMe.sol",
       "solcConfig": {
         "version": "0.8.8",
