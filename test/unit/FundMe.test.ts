@@ -125,7 +125,23 @@ describe("FundMe", async () => {
                 )
 
                 // funders are reset
+                await expect(fundMe.funders(0)).to.be.reverted
+
+                for (i = 1; i < 6; i++) {
+                    assert.equal(
+                        await fundMe.addressToAmountFunded(accounts[i].address),
+                        BigInt("0")
+                    )
+                }
             }
+        })
+        it("Only allows Owner to withdray", async () => {
+            const accounts = await ethers.getSigners()
+            const attacker = accounts[1]
+            const attackerConnectedContract = await fundMe.connect(attacker)
+            await expect(
+                attackerConnectedContract.withdraw()
+            ).to.be.revertedWithCustomError(fundMe, "FundMe__NotOwner")
         })
     })
 })
