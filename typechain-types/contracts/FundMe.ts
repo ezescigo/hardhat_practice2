@@ -29,7 +29,7 @@ export interface FundMeInterface extends Interface {
       | "fund"
       | "funders"
       | "i_owner"
-      | "priceFeed"
+      | "s_priceFeed"
       | "withdraw"
   ): FunctionFragment;
 
@@ -47,7 +47,10 @@ export interface FundMeInterface extends Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "i_owner", values?: undefined): string;
-  encodeFunctionData(functionFragment: "priceFeed", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "s_priceFeed",
+    values?: undefined
+  ): string;
   encodeFunctionData(functionFragment: "withdraw", values?: undefined): string;
 
   decodeFunctionResult(
@@ -61,7 +64,10 @@ export interface FundMeInterface extends Interface {
   decodeFunctionResult(functionFragment: "fund", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "funders", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "i_owner", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "priceFeed", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "s_priceFeed",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
 }
 
@@ -122,7 +128,7 @@ export interface FundMe extends BaseContract {
 
   i_owner: TypedContractMethod<[], [string], "view">;
 
-  priceFeed: TypedContractMethod<[], [string], "view">;
+  s_priceFeed: TypedContractMethod<[], [string], "view">;
 
   withdraw: TypedContractMethod<[], [void], "nonpayable">;
 
@@ -146,7 +152,7 @@ export interface FundMe extends BaseContract {
     nameOrSignature: "i_owner"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
-    nameOrSignature: "priceFeed"
+    nameOrSignature: "s_priceFeed"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "withdraw"

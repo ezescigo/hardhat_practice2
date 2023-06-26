@@ -28,7 +28,7 @@ const fundMe: DeployFunction = async function ({
         from: deployer,
         args: args,
         log: true,
-        waitConfirmations: 6,
+        // waitConfirmations: 6,
     })
 
     if (

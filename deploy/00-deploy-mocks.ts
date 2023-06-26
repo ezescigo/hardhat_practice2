@@ -20,7 +20,7 @@ const deployMocks: DeployFunction = async function ({
     if (developmentChain.includes(network.name)) {
         log("Local network detected, deploying mocks...")
         await deploy("MockV3Aggregator", {
-            contract: "",
+            contract: "MockV3Aggregator",
             from: deployer,
             log: true,
             args: [DECIMALS, INITIAL_ANSWER],
