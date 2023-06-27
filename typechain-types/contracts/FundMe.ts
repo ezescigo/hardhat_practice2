@@ -25,11 +25,12 @@ export interface FundMeInterface extends Interface {
   getFunction(
     nameOrSignature:
       | "MINIMUM_USD"
-      | "addressToAmountFunded"
+      | "cheaperWithdraw"
       | "fund"
-      | "funders"
-      | "i_owner"
-      | "s_priceFeed"
+      | "getAddressToAmountFunded"
+      | "getFunder"
+      | "getOwner"
+      | "getPriceFeed"
       | "withdraw"
   ): FunctionFragment;
 
@@ -38,17 +39,21 @@ export interface FundMeInterface extends Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "addressToAmountFunded",
-    values: [AddressLike]
+    functionFragment: "cheaperWithdraw",
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "fund", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "funders",
+    functionFragment: "getAddressToAmountFunded",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getFunder",
     values: [BigNumberish]
   ): string;
-  encodeFunctionData(functionFragment: "i_owner", values?: undefined): string;
+  encodeFunctionData(functionFragment: "getOwner", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "s_priceFeed",
+    functionFragment: "getPriceFeed",
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "withdraw", values?: undefined): string;
@@ -58,14 +63,18 @@ export interface FundMeInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "addressToAmountFunded",
+    functionFragment: "cheaperWithdraw",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "fund", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "funders", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "i_owner", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "s_priceFeed",
+    functionFragment: "getAddressToAmountFunded",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "getFunder", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getOwner", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getPriceFeed",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
@@ -116,21 +125,23 @@ export interface FundMe extends BaseContract {
 
   MINIMUM_USD: TypedContractMethod<[], [bigint], "view">;
 
-  addressToAmountFunded: TypedContractMethod<
-    [arg0: AddressLike],
+  cheaperWithdraw: TypedContractMethod<[], [void], "payable">;
+
+  fund: TypedContractMethod<[], [void], "payable">;
+
+  getAddressToAmountFunded: TypedContractMethod<
+    [funder: AddressLike],
     [bigint],
     "view"
   >;
 
-  fund: TypedContractMethod<[], [void], "payable">;
+  getFunder: TypedContractMethod<[index: BigNumberish], [string], "view">;
 
-  funders: TypedContractMethod<[arg0: BigNumberish], [string], "view">;
+  getOwner: TypedContractMethod<[], [string], "view">;
 
-  i_owner: TypedContractMethod<[], [string], "view">;
+  getPriceFeed: TypedContractMethod<[], [string], "view">;
 
-  s_priceFeed: TypedContractMethod<[], [string], "view">;
-
-  withdraw: TypedContractMethod<[], [void], "nonpayable">;
+  withdraw: TypedContractMethod<[], [void], "payable">;
 
   getFunction<T extends ContractMethod = ContractMethod>(
     key: string | FunctionFragment
@@ -140,23 +151,26 @@ export interface FundMe extends BaseContract {
     nameOrSignature: "MINIMUM_USD"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
-    nameOrSignature: "addressToAmountFunded"
-  ): TypedContractMethod<[arg0: AddressLike], [bigint], "view">;
+    nameOrSignature: "cheaperWithdraw"
+  ): TypedContractMethod<[], [void], "payable">;
   getFunction(
     nameOrSignature: "fund"
   ): TypedContractMethod<[], [void], "payable">;
   getFunction(
-    nameOrSignature: "funders"
-  ): TypedContractMethod<[arg0: BigNumberish], [string], "view">;
+    nameOrSignature: "getAddressToAmountFunded"
+  ): TypedContractMethod<[funder: AddressLike], [bigint], "view">;
   getFunction(
-    nameOrSignature: "i_owner"
+    nameOrSignature: "getFunder"
+  ): TypedContractMethod<[index: BigNumberish], [string], "view">;
+  getFunction(
+    nameOrSignature: "getOwner"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
-    nameOrSignature: "s_priceFeed"
+    nameOrSignature: "getPriceFeed"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "withdraw"
-  ): TypedContractMethod<[], [void], "nonpayable">;
+  ): TypedContractMethod<[], [void], "payable">;
 
   filters: {};
 }

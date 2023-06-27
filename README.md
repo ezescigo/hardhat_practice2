@@ -10,5 +10,5 @@ npx hardhat test
 REPORT_GAS=true npx hardhat test
 npx hardhat node
 npx hardhat run scripts/deploy.ts
-yarn hardhat deploy --tags mocks
+yarn hardhat deploy --tags mocks // will run typechain
 ```
