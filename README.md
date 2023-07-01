@@ -12,3 +12,12 @@ npx hardhat node
 npx hardhat run scripts/deploy.ts
 yarn hardhat deploy --tags mocks // will run typechain
 ```
+
+-----------  Tests  --------------
+yarn hardhat test --network xxxxx
+
+-----------  SCRIPTS  --------------------
+To run Scripts (example with fund.ts script):
+
+yarn hardhat node
+yarn hardhat run scripts/fund.ts --network localhost
